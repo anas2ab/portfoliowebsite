@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#11120f"/>
+  <circle cx="1020" cy="60" r="420" fill="#d6ff72" opacity=".08"/>
+  <path d="M70 88h1060M70 540h1060" stroke="#3b3e35"/>
+  <text x="70" y="265" fill="#f2f0e7" font-family="Arial, sans-serif" font-size="108" font-weight="700">ANAS BUTT</text>
+  <text x="76" y="338" fill="#d6ff72" font-family="monospace" font-size="26" letter-spacing="5">SENIOR SOFTWARE ENGINEER</text>
+  <text x="76" y="458" fill="#a9aa9f" font-family="Arial, sans-serif" font-size="31">Reliable systems. Practical products. Measurable outcomes.</text>
+</svg>

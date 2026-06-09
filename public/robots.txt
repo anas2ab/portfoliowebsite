@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anas2ab.github.io/portfoliowebsite/sitemap.xml
