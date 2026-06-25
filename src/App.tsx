@@ -16,7 +16,7 @@ function Header({ openCommand }: { openCommand: () => void }) {
     <header className="site-header">
       <a className="monogram" href="#top" aria-label="AB. Anas Butt, home">AB<span>.</span></a>
       <nav aria-label="Main navigation">
-        <a href="#work">Work</a>
+        <a href="#work">Impact</a>
         <a href="#projects">Projects</a>
         <a href="#timeline">Journey</a>
       </nav>
@@ -40,7 +40,7 @@ function BootScreen() {
         <motion.div className="boot" exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .45 }}>
           <div className="boot-mark">AB<span>.</span></div>
           <div className="boot-log">
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .2 }}>LOADING SYSTEMS</motion.span>
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .2 }}>LOADING PORTFOLIO</motion.span>
             <motion.span initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: .8, delay: .35 }} className="boot-line" />
             <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>READY / TORONTO</motion.span>
           </div>
@@ -56,6 +56,8 @@ function Hero({ openCommand }: { openCommand: () => void }) {
   const contentY = useTransform(scrollY, [0, 700], [0, -50]);
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
+      <div className="track-ribbon" aria-hidden="true" />
+      <div className="hero-confetti" aria-hidden="true" />
       <motion.div className="hero-portrait" style={{ y: imageY }}>
         <img src={`${import.meta.env.BASE_URL}anas-butt-portrait.jpg`} alt="Anas Butt" />
         <div className="portrait-shade" />
@@ -66,18 +68,18 @@ function Hero({ openCommand }: { openCommand: () => void }) {
           Senior Software Engineer / Toronto
         </motion.p>
         <motion.h1 id="hero-title" initial={{ opacity: 0, y: 45 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: 1.55 }}>
-          Hi, I'm<br />Anas<span>.</span>
+          Anas Butt<span>.</span>
         </motion.h1>
         <motion.div className="hero-statement" initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: 1.72 }}>
-          <p>I build reliable systems that make complicated work feel simple.</p>
+          <p>I work on the kind of backend systems where speed matters, but boring reliability matters more.</p>
           <div className="hero-actions">
             <a href="#work" className="text-link">Explore the work <Arrow /></a>
             <button onClick={openCommand} className="quiet-action">or press <kbd>⌘ K</kbd></button>
           </div>
         </motion.div>
       </motion.div>
-      <div className="hero-status">
-        <span className="status-dot" /> SYSTEMS ONLINE
+      <div className="hero-status" aria-label="Systems online">
+        <span className="start-light" /><span className="start-light" /><span className="start-light" /> SYSTEMS ONLINE
       </div>
       <div className="scroll-note">SCROLL TO INSPECT <span>↓</span></div>
     </section>
@@ -100,8 +102,8 @@ function SystemMap() {
     <section className="system-section" id="stack" aria-labelledby="system-title">
       <div className="system-copy">
         <p className="eyebrow">Operating model</p>
-        <h2 id="system-title">From request<br />to reliable result.</h2>
-        <p>My work lives between business intent and production reality: shaping boundaries, moving events, and making systems observable.</p>
+        <h2 id="system-title">I like the messy middle.</h2>
+        <p>The useful work usually sits between a vague business ask and a production system that has to survive real traffic, old constraints, and future changes.</p>
       </div>
       <div className="system-map">
         <svg viewBox="0 0 900 580" role="img" aria-labelledby="system-map-title">
@@ -136,7 +138,7 @@ function SystemMap() {
 function ImpactLog() {
   return (
     <section className="impact-section" id="work">
-      <SectionIntro index="01" label="Impact log" title="Performance is a feature." body="A selected record of production outcomes, not just responsibilities." />
+      <SectionIntro index="01" label="Impact log" title="A few things I have made better." body="Not every win is glamorous. Sometimes the best work is shaving minutes off a process people use every day." />
       <div className="impact-table">
         <div className="impact-head"><span>Record</span><span>Outcome</span><span>Signal</span></div>
         {impacts.map((impact, i) => (
@@ -186,7 +188,7 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
 function Projects({ openProject }: { openProject: (project: Project) => void }) {
   return (
     <section className="projects-section" id="projects">
-      <SectionIntro index="02" label="Selected systems" title="Built for production. Built for myself." body="Enterprise systems, personal tools, and a business website all share the same standard: they need to work." />
+      <SectionIntro index="02" label="Selected systems" title="Some work from the desk." body="A mix of enterprise systems, side projects, and small business work. Different contexts, same habit: make it useful and keep it maintainable." />
       <div className="project-list">
         {projects.map((project, i) => (
           <motion.article className="project-row" key={project.id} initial={{ opacity: 0, y: 45 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .65, delay: i * .04 }}>
@@ -206,7 +208,7 @@ function Projects({ openProject }: { openProject: (project: Project) => void }) 
 function Capabilities() {
   return (
     <section className="capabilities">
-      <SectionIntro index="03" label="Capabilities" title="The stack is a means, not the headline." body="Tools selected around reliable delivery, clear ownership, and systems that remain understandable." />
+      <SectionIntro index="03" label="Capabilities" title="Tools I reach for often." body="The exact stack changes by problem. These are the tools and patterns I have spent enough time with to know where they help, and where they bite." />
       <div className="capability-grid">
         {capabilities.map((group) => <div key={group.label}><span>{group.label}</span>{group.items.map(item => <p key={item}>{item}</p>)}</div>)}
       </div>
@@ -217,7 +219,7 @@ function Capabilities() {
 function Timeline() {
   return (
     <section className="timeline-section" id="timeline">
-      <SectionIntro index="04" label="Trajectory" title="More ownership with every move." body="The throughline from support to senior engineering is a growing ability to understand the whole system." />
+      <SectionIntro index="04" label="Trajectory" title="A practical path into engineering." body="Support, QA, delivery, platform work, modernization. Each step made me better at seeing how software behaves once real people depend on it." />
       <div className="timeline">
         {timeline.map((item, i) => (
           <motion.div className="timeline-row" key={item.years} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * .08 }}>
@@ -235,7 +237,7 @@ function Contact() {
   return (
     <footer className="contact" id="contact">
       <p className="eyebrow">Open channel / 05</p>
-      <h2>Let’s build something<br /><em>worth operating.</em></h2>
+      <h2>Want to build something<br /><em>that holds up?</em></h2>
       <a className="email-link" href={links.email}>anasahmadbutt@gmail.com <Arrow diagonal /></a>
       <div className="footer-links">
         <span>TORONTO, CANADA</span>
