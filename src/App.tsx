@@ -32,7 +32,7 @@ function About() {
       <div className="about-copy">
         <h2 id="about-title">I build backend software, and I care about what happens after it ships.</h2>
         <p>I’m a senior software engineer at Sun Life, mostly working with Java, Spring Boot, Kafka, and the infrastructure around them. I like modernization work, production debugging, and turning slow or fragile processes into dependable ones.</p>
-        <p>Outside the day job, I’m building a local-first trading journal and helping run a Toronto photo booth business. Both keep me close to the practical side of software: real constraints, real users, and no room for theatre.</p>
+        <p>Outside the day job, I’m building a local-first trading journal, a House Maintenance tracking app and helping run a Toronto photo booth business. Both keep me close to the practical side of software: real constraints, real users, and no room for theatre.</p>
       </div>
       <aside className="about-now" aria-label="Currently">
         <span>Currently</span>
@@ -68,11 +68,11 @@ function Hero() {
       </motion.div>
       <motion.div className="hero-content" style={{ y: contentY }}>
         <motion.p className="eyebrow" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .15 }}>
-          Hi! <span className="wave" aria-hidden="true">✌🏼</span>
+          Hi! <span className="wave" aria-hidden="true">👋</span>
         </motion.p>
         <motion.p className="hero-name-intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .19 }}>my name is</motion.p>
         <motion.h1 id="hero-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .22 }}>
-          Anas Butt<span>.</span>
+          Anas<span>.</span>
         </motion.h1>
         <motion.div className="hero-statement" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65, delay: .34 }}>
           <p className="hero-tagline">I turn complex systems into dependable software.</p>
@@ -118,6 +118,21 @@ function ImpactLog() {
 }
 
 function ProjectVisual({ type }: { type: Project["visual"] }) {
+  if (type === "housefax") return (
+    <div className="visual housefax-visual" aria-label="HouseFax home maintenance dashboard preview">
+      <div className="housefax-top"><strong>HOUSE FAX</strong><span>41 Riverstone Lane</span><b>A−</b></div>
+      <div className="housefax-body">
+        <div className="housefax-heading"><span>PROPERTY HEALTH</span><strong>Home maintenance record</strong></div>
+        <div className="housefax-score"><b>88%</b><span>Systems healthy</span></div>
+        <div className="housefax-systems">
+          <span>Climate <i style={{ width: "78%" }} /></span>
+          <span>Plumbing <i style={{ width: "88%" }} /></span>
+          <span>Roofing <i style={{ width: "90%" }} /></span>
+        </div>
+        <div className="housefax-alert"><small>DUE SOON</small><strong>HVAC inspection</strong><span>Service in 9 days →</span></div>
+      </div>
+    </div>
+  );
   if (type === "trading") return (
     <div className="visual screenshot-visual trading-screenshot">
       <img src={`${import.meta.env.BASE_URL}trading_journal.png`} alt="Trading Journal dashboard showing balance, profit and loss, open positions, win rate, equity chart, and review queue" />
@@ -226,7 +241,7 @@ function ProjectModal({ project, close }: { project: Project | null; close: () =
       {project && <motion.div className="case-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <motion.article className="case-modal" role="dialog" aria-modal="true" aria-labelledby="case-title" layoutId={`project-${project.id}`} initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", damping: 30, stiffness: 240 }}>
           <button className="case-close" onClick={close} aria-label="Close case study">CLOSE <span>×</span></button>
-          <div className="case-number">{project.index} / 05</div>
+          <div className="case-number">{project.index} / 06</div>
           <p className="eyebrow">{project.eyebrow}</p>
           <h2 id="case-title">{project.title}</h2>
           <p className="case-lead">{project.summary}</p>
@@ -239,7 +254,10 @@ function ProjectModal({ project, close }: { project: Project | null; close: () =
             <div className="case-stack">{project.stack.map(item => <span key={item}>{item}</span>)}</div>
             <ol>{project.details.map(item => <li key={item}>{item}</li>)}</ol>
           </div>
-          {project.link && <a className="case-link" href={project.link} target="_blank" rel="noreferrer">VIEW REPOSITORY <Arrow diagonal /></a>}
+          <div className="case-links">
+            {project.site && <a className="case-link" href={project.site} target="_blank" rel="noreferrer">VISIT WEBSITE <Arrow diagonal /></a>}
+            {project.link && <a className="case-link" href={project.link} target="_blank" rel="noreferrer">VIEW REPOSITORY <Arrow diagonal /></a>}
+          </div>
         </motion.article>
       </motion.div>}
     </AnimatePresence>

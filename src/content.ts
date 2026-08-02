@@ -9,7 +9,8 @@ export type Project = {
   stack: string[];
   details: string[];
   link?: string;
-  visual: "modernize" | "events" | "trading" | "business" | "archive";
+  site?: string;
+  visual: "modernize" | "events" | "trading" | "business" | "archive" | "housefax";
 };
 
 export const links = {
@@ -95,8 +96,27 @@ export const projects: Project[] = [
     visual: "events",
   },
   {
-    id: "trading-journal",
+    id: "housefax",
     index: "03",
+    eyebrow: "Home maintenance product",
+    title: "A clear maintenance history for every home.",
+    summary: "HouseFax brings repairs, receipts, warranties, photos, schedules, and property health into one organized record.",
+    outcome: "Home upkeep made trackable and shareable",
+    context: "A full product built around the recurring work of owning and maintaining a home.",
+    stack: ["Web application", "Responsive UI", "PDF reports", "File uploads", "AI-assisted insights"],
+    details: [
+      "Keeps maintenance records, costs, vendors, notes, and attachments connected to the home.",
+      "Tracks routine schedules, overdue work, warranties, and upcoming service.",
+      "Builds photo timelines and shareable home-history reports for owners, buyers, agents, or insurers.",
+      "Surfaces property health scores, cost trends, and AI-assisted maintenance predictions.",
+    ],
+    link: "https://github.com/anas2ab/HouseFax",
+    site: "https://myhousefax.ca",
+    visual: "housefax",
+  },
+  {
+    id: "trading-journal",
+    index: "04",
     eyebrow: "Personal product",
     title: "A trading journal I actually wanted to use.",
     summary: "A local-first tool for reviewing options trades, spotting repeated mistakes, and keeping the data on my own machine.",
@@ -114,7 +134,7 @@ export const projects: Project[] = [
   },
   {
     id: "ym-events",
-    index: "04",
+    index: "05",
     eyebrow: "Business + product",
     title: "A website for a business I help run.",
     summary: "A practical marketing site for a photo booth business, built around local search and quick booking decisions.",
@@ -132,7 +152,7 @@ export const projects: Project[] = [
   },
   {
     id: "kijiji-bot",
-    index: "05",
+    index: "06",
     eyebrow: "From the archive",
     title: "A small bot for a very specific annoyance.",
     summary: "An early Python project that watched marketplace listings so I did not have to keep refreshing the same searches.",
