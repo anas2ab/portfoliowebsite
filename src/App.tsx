@@ -46,6 +46,16 @@ function About() {
   );
 }
 
+function SocialRail() {
+  return (
+    <aside className="social-rail" aria-label="Profile links">
+      <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
+      <a href={links.resume} target="_blank" rel="noreferrer" aria-label="Résumé">CV</a>
+      <span aria-hidden="true" />
+    </aside>
+  );
+}
+
 function Hero() {
   const { scrollY } = useScroll();
   const imageY = useTransform(scrollY, [0, 800], [0, 90]);
@@ -58,13 +68,15 @@ function Hero() {
       </motion.div>
       <motion.div className="hero-content" style={{ y: contentY }}>
         <motion.p className="eyebrow" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .15 }}>
-          Senior software engineer in Toronto
+          Hi! <span className="wave" aria-hidden="true">✌🏼</span>
         </motion.p>
+        <motion.p className="hero-name-intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .19 }}>my name is</motion.p>
         <motion.h1 id="hero-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .22 }}>
           Anas Butt<span>.</span>
         </motion.h1>
         <motion.div className="hero-statement" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65, delay: .34 }}>
-          <p>I work on the kind of backend systems where speed matters, but boring reliability matters more.</p>
+          <p className="hero-tagline">I turn complex systems into dependable software.</p>
+          <p className="hero-introduction">I’m a senior software engineer from Toronto working across backend systems, modernization, and platform reliability.</p>
           <div className="hero-actions">
             <a href="#work" className="text-link">Explore the work <Arrow /></a>
             <a href={links.resume} target="_blank" rel="noreferrer" className="quiet-action">Read my résumé <Arrow diagonal /></a>
@@ -239,6 +251,7 @@ export default function App() {
   return (
     <>
       <Header />
+      <SocialRail />
       <main>
         <Hero />
         <About />
