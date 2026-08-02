@@ -1274,8 +1274,8 @@ body { background: var(--surface); color: var(--ink); font-family: var(--sans); 
 }
 
 .hero-portrait {
-  top: 19vh;
-  width: min(38vw, 610px);
+  top: 23vh;
+  width: min(30vw, 470px);
   height: auto;
   aspect-ratio: 1;
   border: 1px solid rgba(47, 53, 92, .18);
@@ -1290,9 +1290,9 @@ body { background: var(--surface); color: var(--ink); font-family: var(--sans); 
 
 @media (max-width: 900px) {
   .hero-portrait {
-    top: 22vh;
-    right: 3vw;
-    width: 43vw;
+    top: 27vh;
+    right: 4vw;
+    width: 34vw;
     height: auto;
     opacity: .5;
   }
