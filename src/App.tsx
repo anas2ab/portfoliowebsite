@@ -1,6 +1,6 @@
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { capabilities, commands, impacts, links, projects, timeline, type Project } from "./content";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { capabilities, impacts, links, projects, timeline, type Project } from "./content";
 
 const reveal = {
   hidden: { opacity: 0, y: 30 },
@@ -11,77 +11,68 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? "↗" : "→"}</span>;
 }
 
-function Header({ openCommand }: { openCommand: () => void }) {
+function Header() {
   return (
     <header className="site-header">
       <a className="monogram" href="#top" aria-label="AB. Anas Butt, home">AB<span>.</span></a>
       <nav aria-label="Main navigation">
-        <a href="#work">Impact</a>
-        <a href="#projects">Projects</a>
-        <a href="#timeline">Journey</a>
+        <a href="#about">About</a>
+        <a href="#projects">Work</a>
+        <a href="#timeline">Experience</a>
       </nav>
-      <button className="command-trigger" onClick={openCommand}>
-        <span>Command</span><kbd>⌘ K</kbd>
-      </button>
+      <a className="header-contact" href={links.email}>Let’s talk <Arrow diagonal /></a>
     </header>
   );
 }
 
-function BootScreen() {
-  const [visible, setVisible] = useState(true);
-  const reduced = useReducedMotion();
-  useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(false), reduced ? 150 : 1500);
-    return () => window.clearTimeout(timer);
-  }, [reduced]);
+function About() {
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div className="boot" exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .45 }}>
-          <div className="boot-mark">AB<span>.</span></div>
-          <div className="boot-log">
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .2 }}>LOADING PORTFOLIO</motion.span>
-            <motion.span initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: .8, delay: .35 }} className="boot-line" />
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>READY / TORONTO</motion.span>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <section className="about-section" id="about" aria-labelledby="about-title">
+      <p className="about-label">A little context</p>
+      <div className="about-copy">
+        <h2 id="about-title">I build backend software, and I care about what happens after it ships.</h2>
+        <p>I’m a senior software engineer at Sun Life, mostly working with Java, Spring Boot, Kafka, and the infrastructure around them. I like modernization work, production debugging, and turning slow or fragile processes into dependable ones.</p>
+        <p>Outside the day job, I’m building a local-first trading journal and helping run a Toronto photo booth business. Both keep me close to the practical side of software: real constraints, real users, and no room for theatre.</p>
+      </div>
+      <aside className="about-now" aria-label="Currently">
+        <span>Currently</span>
+        <dl>
+          <div><dt>Working on</dt><dd>Java modernization</dd></div>
+          <div><dt>Building</dt><dd>A trading journal</dd></div>
+          <div><dt>Based in</dt><dd>Toronto, Canada</dd></div>
+        </dl>
+      </aside>
+    </section>
   );
 }
 
-function Hero({ openCommand }: { openCommand: () => void }) {
+function Hero() {
   const { scrollY } = useScroll();
   const imageY = useTransform(scrollY, [0, 800], [0, 90]);
   const contentY = useTransform(scrollY, [0, 700], [0, -50]);
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
-      <div className="track-ribbon" aria-hidden="true" />
-      <div className="hero-confetti" aria-hidden="true" />
       <motion.div className="hero-portrait" style={{ y: imageY }}>
         <img src={`${import.meta.env.BASE_URL}anas-butt-portrait.jpg`} alt="Anas Butt" />
         <div className="portrait-shade" />
       </motion.div>
-      <div className="hero-grid" aria-hidden="true" />
       <motion.div className="hero-content" style={{ y: contentY }}>
-        <motion.p className="eyebrow" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
-          Senior Software Engineer / Toronto
+        <motion.p className="eyebrow" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .15 }}>
+          Senior software engineer in Toronto
         </motion.p>
-        <motion.h1 id="hero-title" initial={{ opacity: 0, y: 45 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: 1.55 }}>
+        <motion.h1 id="hero-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .22 }}>
           Anas Butt<span>.</span>
         </motion.h1>
-        <motion.div className="hero-statement" initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: 1.72 }}>
+        <motion.div className="hero-statement" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65, delay: .34 }}>
           <p>I work on the kind of backend systems where speed matters, but boring reliability matters more.</p>
           <div className="hero-actions">
             <a href="#work" className="text-link">Explore the work <Arrow /></a>
-            <button onClick={openCommand} className="quiet-action">or press <kbd>⌘ K</kbd></button>
+            <a href={links.resume} target="_blank" rel="noreferrer" className="quiet-action">Read my résumé <Arrow diagonal /></a>
           </div>
         </motion.div>
       </motion.div>
-      <div className="hero-status" aria-label="Systems online">
-        <span className="start-light" /><span className="start-light" /><span className="start-light" /> SYSTEMS ONLINE
-      </div>
-      <div className="scroll-note">SCROLL TO INSPECT <span>↓</span></div>
+      <div className="hero-status">Available for thoughtful conversations</div>
+      <div className="scroll-note">Selected work <span>↓</span></div>
     </section>
   );
 }
@@ -96,49 +87,10 @@ function SectionIntro({ index, label, title, body }: { index: string; label: str
   );
 }
 
-function SystemMap() {
-  const reduce = useReducedMotion();
-  return (
-    <section className="system-section" id="stack" aria-labelledby="system-title">
-      <div className="system-copy">
-        <p className="eyebrow">Operating model</p>
-        <h2 id="system-title">I like the messy middle.</h2>
-        <p>The useful work usually sits between a vague business ask and a production system that has to survive real traffic, old constraints, and future changes.</p>
-      </div>
-      <div className="system-map">
-        <svg viewBox="0 0 900 580" role="img" aria-labelledby="system-map-title">
-          <title id="system-map-title">System diagram connecting intent, Java and Spring services, Kafka events, AWS APIs, Kubernetes, observability, and results</title>
-          <defs>
-            <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <g className="map-lines">
-            <motion.path d="M120 290H275" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1 }} />
-            <motion.path d="M395 290H510" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: .2 }} />
-            <motion.path d="M630 290H780" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: .4 }} />
-            <motion.path d="M335 230V120H600V230" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1.1, delay: .45 }} />
-            <motion.path d="M570 350V470H335V350" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1.1, delay: .6 }} />
-          </g>
-          {!reduce && <g className="map-pulses" filter="url(#glow)">
-            <circle r="4"><animateMotion dur="3s" repeatCount="indefinite" path="M120 290H780" /></circle>
-            <circle r="4"><animateMotion dur="4s" repeatCount="indefinite" path="M335 290V120H600V290" /></circle>
-          </g>}
-          <g className="map-node"><rect x="30" y="245" width="90" height="90" rx="45"/><text x="75" y="285">01</text><text x="75" y="307">INTENT</text></g>
-          <g className="map-node featured"><rect x="275" y="230" width="120" height="120" rx="8"/><text x="335" y="280">JAVA</text><text x="335" y="304">SPRING</text></g>
-          <g className="map-node"><rect x="510" y="230" width="120" height="120" rx="60"/><text x="570" y="284">KAFKA</text><text x="570" y="306">EVENTS</text></g>
-          <g className="map-node"><rect x="780" y="245" width="90" height="90" rx="4"/><text x="825" y="285">04</text><text x="825" y="307">RESULT</text></g>
-          <g className="map-node small"><rect x="530" y="75" width="140" height="60" rx="3"/><text x="600" y="110">AWS / APIs</text></g>
-          <g className="map-node small"><rect x="265" y="445" width="140" height="60" rx="3"/><text x="335" y="480">KUBERNETES</text></g>
-          <g className="map-node small"><rect x="500" y="445" width="140" height="60" rx="3"/><text x="570" y="480">OBSERVABILITY</text></g>
-        </svg>
-      </div>
-    </section>
-  );
-}
-
 function ImpactLog() {
   return (
     <section className="impact-section" id="work">
-      <SectionIntro index="01" label="Impact log" title="A few things I have made better." body="Not every win is glamorous. Sometimes the best work is shaving minutes off a process people use every day." />
+      <SectionIntro index="01" label="At work" title="A few things I’ve made better." body="Not every win is glamorous. Sometimes the best work is shaving minutes off a process people use every day." />
       <div className="impact-table">
         <div className="impact-head"><span>Record</span><span>Outcome</span><span>Signal</span></div>
         {impacts.map((impact, i) => (
@@ -188,7 +140,7 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
 function Projects({ openProject }: { openProject: (project: Project) => void }) {
   return (
     <section className="projects-section" id="projects">
-      <SectionIntro index="02" label="Selected systems" title="Some work from the desk." body="A mix of enterprise systems, side projects, and small business work. Different contexts, same habit: make it useful and keep it maintainable." />
+      <SectionIntro index="02" label="Selected work" title="Built for actual use." body="Enterprise systems, personal tools, and a small business website. Different contexts; the same preference for useful, maintainable software." />
       <div className="project-list">
         {projects.map((project, i) => (
           <motion.article className="project-row" key={project.id} initial={{ opacity: 0, y: 45 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .65, delay: i * .04 }}>
@@ -208,7 +160,7 @@ function Projects({ openProject }: { openProject: (project: Project) => void }) 
 function Capabilities() {
   return (
     <section className="capabilities">
-      <SectionIntro index="03" label="Capabilities" title="Tools I reach for often." body="The exact stack changes by problem. These are the tools and patterns I have spent enough time with to know where they help, and where they bite." />
+      <SectionIntro index="03" label="Toolkit" title="What I work with." body="The stack changes with the problem. These are the tools I’ve spent enough time with to know where they help—and where they bite." />
       <div className="capability-grid">
         {capabilities.map((group) => <div key={group.label}><span>{group.label}</span>{group.items.map(item => <p key={item}>{item}</p>)}</div>)}
       </div>
@@ -219,7 +171,7 @@ function Capabilities() {
 function Timeline() {
   return (
     <section className="timeline-section" id="timeline">
-      <SectionIntro index="04" label="Trajectory" title="A practical path into engineering." body="Support, QA, delivery, platform work, modernization. Each step made me better at seeing how software behaves once real people depend on it." />
+      <SectionIntro index="04" label="Experience" title="I learned the system from the outside in." body="Support, QA, delivery, platform work, modernization. Each step taught me more about how software behaves once people depend on it." />
       <div className="timeline">
         {timeline.map((item, i) => (
           <motion.div className="timeline-row" key={item.years} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * .08 }}>
@@ -236,7 +188,7 @@ function Timeline() {
 function Contact() {
   return (
     <footer className="contact" id="contact">
-      <p className="eyebrow">Open channel / 05</p>
+      <p className="eyebrow">Get in touch / 05</p>
       <h2>Want to build something<br /><em>that holds up?</em></h2>
       <a className="email-link" href={links.email}>anasahmadbutt@gmail.com <Arrow diagonal /></a>
       <div className="footer-links">
@@ -246,38 +198,6 @@ function Contact() {
         <a href="#top">BACK TO TOP ↑</a>
       </div>
     </footer>
-  );
-}
-
-function CommandPalette({ open, close }: { open: boolean; close: () => void }) {
-  const [query, setQuery] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-  const filtered = useMemo(() => commands.filter(c => `${c.label} ${c.hint}`.toLowerCase().includes(query.toLowerCase())), [query]);
-  const dismiss = () => {
-    setQuery("");
-    close();
-  };
-  useEffect(() => {
-    if (open) window.setTimeout(() => inputRef.current?.focus(), 50);
-  }, [open]);
-  const go = (command: typeof commands[number]) => {
-    if (command.external) window.open(command.target, "_blank", "noopener,noreferrer");
-    else document.querySelector(command.target)?.scrollIntoView({ behavior: "smooth" });
-    dismiss();
-  };
-  return (
-    <AnimatePresence>
-      {open && <motion.div className="palette-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={dismiss}>
-        <motion.div className="palette" role="dialog" aria-modal="true" aria-label="Command menu" initial={{ opacity: 0, scale: .96, y: -15 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: .98 }} onMouseDown={e => e.stopPropagation()}>
-          <div className="palette-input"><span>›</span><input ref={inputRef} value={query} onChange={e => setQuery(e.target.value)} placeholder="Where do you want to go?" onKeyDown={e => { if (e.key === "Escape") dismiss(); if (e.key === "Enter" && filtered[0]) go(filtered[0]); }} /></div>
-          <div className="palette-results">
-            {filtered.map((command, i) => <button key={command.label} onClick={() => go(command)}><span><b>{command.label}</b>{command.hint}</span><small>{i === 0 ? "↵" : "→"}</small></button>)}
-            {!filtered.length && <p className="empty-result">No matching command.</p>}
-          </div>
-          <div className="palette-foot"><span>ESC TO CLOSE</span><span>ENTER TO SELECT</span></div>
-        </motion.div>
-      </motion.div>}
-    </AnimatePresence>
   );
 }
 
@@ -315,30 +235,19 @@ function ProjectModal({ project, close }: { project: Project | null; close: () =
 }
 
 export default function App() {
-  const [paletteOpen, setPaletteOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); setPaletteOpen(v => !v); }
-      if (e.key === "Escape") setPaletteOpen(false);
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, []);
   return (
     <>
-      <BootScreen />
-      <Header openCommand={() => setPaletteOpen(true)} />
+      <Header />
       <main>
-        <Hero openCommand={() => setPaletteOpen(true)} />
-        <SystemMap />
+        <Hero />
+        <About />
         <ImpactLog />
         <Projects openProject={setSelectedProject} />
         <Capabilities />
         <Timeline />
       </main>
       <Contact />
-      <CommandPalette open={paletteOpen} close={() => setPaletteOpen(false)} />
       <ProjectModal project={selectedProject} close={() => setSelectedProject(null)} />
     </>
   );
