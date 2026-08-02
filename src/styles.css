@@ -1319,7 +1319,7 @@ body { background: var(--surface); color: var(--ink); font-family: var(--sans); 
   }
   .hero-portrait {
     display: block;
-    top: 94px;
+    top: clamp(190px, 26svh, 240px);
     right: 18px;
     left: auto;
     width: 112px;
