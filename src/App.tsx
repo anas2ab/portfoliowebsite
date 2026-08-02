@@ -63,7 +63,7 @@ function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       <motion.div className="hero-portrait" style={{ y: imageY }}>
-        <img src={`${import.meta.env.BASE_URL}anas-butt-portrait.jpg`} alt="Anas Butt" />
+        <img src={`${import.meta.env.BASE_URL}anas-butt-illustrated.webp`} alt="Illustrated portrait of Anas Butt" />
         <div className="portrait-shade" />
       </motion.div>
       <motion.div className="hero-content" style={{ y: contentY }}>
