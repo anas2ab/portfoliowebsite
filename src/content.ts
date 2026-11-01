@@ -1,6 +1,7 @@
 export type Project = {
   id: string;
-  index: string;
+  name: string;
+  status: string;
   eyebrow: string;
   title: string;
   summary: string;
@@ -10,77 +11,50 @@ export type Project = {
   details: string[];
   link?: string;
   site?: string;
-  visual: "modernize" | "events" | "trading" | "business" | "archive" | "housefax";
+  visual: "modernize" | "events" | "archive" | "screenshot";
+  screenshot?: { file: string; alt: string; width: number; height: number };
 };
 
 export const links = {
+  emailAddress: "anasahmadbutt@gmail.com",
   email: "mailto:anasahmadbutt@gmail.com",
   github: "https://github.com/anas2ab",
   resume: `${import.meta.env.BASE_URL}Anas_Butt_Resume.pdf`,
+  linkedin: "https://www.linkedin.com/in/anas-butt/",
 };
 
-export const commands = [
-  { label: "work", hint: "A few concrete wins", target: "#work" },
-  { label: "projects", hint: "Systems, products, and experiments", target: "#projects" },
-  { label: "stack", hint: "Tools I use day to day", target: "#stack" },
-  { label: "timeline", hint: "How I got here", target: "#timeline" },
-  { label: "contact", hint: "Email me", target: "#contact" },
-  { label: "resume", hint: "Open PDF resume", target: links.resume, external: true },
-  { label: "github", hint: "Browse public repositories", target: links.github, external: true },
-];
-
 export const impacts = [
-  {
-    code: "PERF-021",
-    status: "RESOLVED",
-    metric: "3–7 min → ~10 sec",
-    title: "Turned a slow job into a quick one",
-    detail: "Moved the workload to OpenShift and cleaned up the rough edges that were making a routine process drag.",
-  },
-  {
-    code: "MOD-821",
-    status: "SHIPPED",
-    metric: "Java 8 → 21",
-    title: "Brought older Java apps up to date",
-    detail: "Upgraded core services without breaking the integrations other teams still relied on.",
-  },
-  {
-    code: "EVT-1000",
-    status: "STABLE",
-    metric: "1000s / day",
-    title: "Kept document events moving",
-    detail: "Worked on Kafka flows where retries, idempotency, and monitoring were not nice-to-haves. They were the difference between noise and trust.",
-  },
-  {
-    code: "REL-000",
-    status: "VERIFIED",
-    metric: "0 critical defects",
-    title: "Shipped releases without drama",
-    detail: "Helped move changes from development to production with better checks, cleaner handoffs, and fewer surprises.",
-  },
+  { figure: "~10 sec", detail: "A routine job that took 3–7 minutes, after moving it to OpenShift and clearing what made it drag." },
+  { figure: "Java 25", detail: "Older apps brought up from Java 8 without breaking the integrations other teams relied on." },
+  { figure: "1000s", detail: "Document events a day through Kafka, where retries, idempotency, and monitoring were the difference between noise and trust." },
+  { figure: "0", detail: "Critical defects across the releases I owned from DEV through SIT to PROD." },
+  { figure: "500+", detail: "SonarQube issues resolved, because the small fixes are what the next person inherits." },
 ];
 
 export const projects: Project[] = [
   {
     id: "modernization",
-    index: "01",
+    name: "Java modernization",
+    status: "Private",
     eyebrow: "Enterprise systems",
     title: "Modernizing without pretending the old system did not exist.",
     summary: "A Java modernization effort where the hard part was not just the version bump. It was keeping the surrounding workflow intact.",
     outcome: "Processing reduced to ~10 seconds",
     context: "Private enterprise work, with company-specific details removed.",
-    stack: ["Java 21", "Spring Boot", "OpenShift", "AWS", "REST"],
+    stack: ["Java 25", "Spring Boot", "OpenShift", "AWS", "React"],
     details: [
-      "Helped move core applications from Java 8 to Java 21.",
-      "Untangled boundaries between applications that had grown around each other.",
+      "Led the move from Java 8 to Java 25 across multiple enterprise applications.",
+      "Redesigned shared architecture that had grown around several applications at once.",
       "Moved workloads to OpenShift and fixed deployment issues that were slowing the team down.",
       "Built a Spring Boot API on AWS to automate data collection that had become too manual.",
+      "Cut React bundle size and page load times with lazy loading and code-splitting.",
     ],
     visual: "modernize",
   },
   {
     id: "esign",
-    index: "02",
+    name: "eSign event platform",
+    status: "Private",
     eyebrow: "Event-driven platform",
     title: "Keeping document workflows from getting stuck.",
     summary: "Microservices and Kafka work for an eSign platform where failed events quickly turn into real user problems.",
@@ -97,10 +71,11 @@ export const projects: Project[] = [
   },
   {
     id: "housefax",
-    index: "03",
+    name: "House Fax",
+    status: "Live",
     eyebrow: "Home maintenance product",
     title: "A clear maintenance history for every home.",
-    summary: "HouseFax brings repairs, receipts, warranties, photos, schedules, and property health into one organized record.",
+    summary: "House Fax brings repairs, receipts, warranties, photos, schedules, and property health into one organized record.",
     outcome: "Home upkeep made trackable and shareable",
     context: "A full product built around the recurring work of owning and maintaining a home.",
     stack: ["Web application", "Responsive UI", "PDF reports", "File uploads", "AI-assisted insights"],
@@ -110,13 +85,44 @@ export const projects: Project[] = [
       "Builds photo timelines and shareable home-history reports for owners, buyers, agents, or insurers.",
       "Surfaces property health scores, cost trends, and AI-assisted maintenance predictions.",
     ],
-    link: "https://github.com/anas2ab/HouseFax",
     site: "https://myhousefax.ca",
-    visual: "housefax",
+    visual: "screenshot",
+    screenshot: {
+      file: "projects/house-fax.webp",
+      alt: "House Fax demo home record showing an A-minus property health score and maintenance details",
+      width: 1370,
+      height: 780,
+    },
+  },
+  {
+    id: "courtpulse",
+    name: "Find an Open Court",
+    status: "Live",
+    eyebrow: "Tennis and pickleball courts",
+    title: "Less driving to courts that turn out to be full.",
+    summary: "An app for finding free outdoor tennis and pickleball courts nearby, with availability reported by the people playing there.",
+    outcome: "Live, with crowdsourced reporting on the way",
+    context: "Started as CourtPulse. A public product still in progress: search is live, and availability reporting is the next piece.",
+    stack: ["Dart", "Geolocation", "English + French"],
+    details: [
+      "Searches by city, park, address, or postal code, or from your current location within a set radius.",
+      "Filters across tennis and pickleball.",
+      "Designed around open, occupied, and not reported states, because a missing report is not an open court.",
+      "Expires reports after 60 minutes so stale availability falls back to unknown.",
+    ],
+    site: "https://findanopencourt.ca",
+    visual: "screenshot",
+    screenshot: {
+      file: "projects/find-an-open-court.webp",
+      alt: "Find an Open Court search screen with location search and tennis and pickleball filters",
+      width: 1400,
+      height: 800,
+    },
   },
   {
     id: "trading-journal",
-    index: "04",
+    name: "Trading journal",
+    status: "Code",
     eyebrow: "Personal product",
     title: "A trading journal I actually wanted to use.",
     summary: "A local-first tool for reviewing options trades, spotting repeated mistakes, and keeping the data on my own machine.",
@@ -130,11 +136,18 @@ export const projects: Project[] = [
       "Includes JSON and CSV import/export with backup rotation.",
     ],
     link: "https://github.com/anas2ab/trading-journal",
-    visual: "trading",
+    visual: "screenshot",
+    screenshot: {
+      file: "projects/trading-journal.webp",
+      alt: "Trading Journal dashboard showing balance, profit and loss, open positions, win rate, equity chart, and review queue",
+      width: 1600,
+      height: 780,
+    },
   },
   {
     id: "ym-events",
-    index: "05",
+    name: "YM Event Vendors",
+    status: "Live",
     eyebrow: "Business + product",
     title: "A website for a business I help run.",
     summary: "A practical marketing site for a photo booth business, built around local search and quick booking decisions.",
@@ -148,11 +161,18 @@ export const projects: Project[] = [
       "Handled the loop from site changes to customer inquiries.",
     ],
     link: "https://github.com/anas2ab/ymeventvendors",
-    visual: "business",
+    visual: "screenshot",
+    screenshot: {
+      file: "projects/ym-event-vendors.webp",
+      alt: "YM Event Vendors homepage advertising premier photo booth rentals across Toronto and surrounding areas",
+      width: 1600,
+      height: 776,
+    },
   },
   {
     id: "kijiji-bot",
-    index: "06",
+    name: "Kijiji bot",
+    status: "Archive",
     eyebrow: "From the archive",
     title: "A small bot for a very specific annoyance.",
     summary: "An early Python project that watched marketplace listings so I did not have to keep refreshing the same searches.",
@@ -171,16 +191,16 @@ export const projects: Project[] = [
 ];
 
 export const timeline = [
-  { years: "2025 — NOW", role: "Senior Software Engineer", place: "Sun Life", note: "Modernization, performance work, architecture discussions, and helping steer delivery." },
-  { years: "2023 — 2025", role: "Software Engineer", place: "Sun Life", note: "Kafka systems, platform reliability, and releases that had to land cleanly." },
-  { years: "2022 — 2023", role: "Associate Software Engineer", place: "Sun Life", note: "Feature work, production debugging, and learning how the larger system fit together." },
-  { years: "2021 — 2022", role: "QA Analyst", place: "Tata Consultancy Services", note: "Testing business-critical workflows and learning how software fails in ordinary ways." },
-  { years: "2020 — 2021", role: "Support / Developer", place: "Flynn Group", note: "Application support, investigations, and the kind of fixes that make you respect the details." },
+  { years: "2025–now", role: "Senior Software Engineer", place: "Sun Life", note: "Modernization, performance, architecture." },
+  { years: "2023–2025", role: "Software Engineer", place: "Sun Life", note: "Kafka systems, platform reliability, releases." },
+  { years: "2022–2023", role: "Associate Software Engineer", place: "Sun Life", note: "Feature work and production debugging." },
+  { years: "2021–2022", role: "QA Analyst", place: "Tata Consultancy Services", note: "Learned how software fails in ordinary ways." },
+  { years: "2020–2021", role: "Junior Applications Support / Developer", place: "Flynn Group", note: "Application support and investigations." },
 ];
 
 export const capabilities = [
-  { label: "BUILD", items: ["Java", "JavaScript", "Python", "Spring Boot"] },
-  { label: "CONNECT", items: ["REST APIs", "Apache Kafka", "MySQL", "MongoDB"] },
-  { label: "OPERATE", items: ["Docker", "Kubernetes", "OpenShift", "AWS"] },
-  { label: "DELIVER", items: ["Jenkins", "CI/CD", "Observability", "Mentorship"] },
+  { label: "Build", items: ["Java", "Spring Boot", "JavaScript", "React", "Python"] },
+  { label: "Connect", items: ["REST APIs", "Apache Kafka", "MySQL", "MongoDB", "Redis"] },
+  { label: "Operate", items: ["Docker", "Kubernetes", "OpenShift", "AWS"] },
+  { label: "Deliver", items: ["Jenkins", "CI/CD", "Observability", "Mentorship"] },
 ];
